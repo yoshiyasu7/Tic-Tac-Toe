@@ -23,8 +23,16 @@ def print_maps():  # Вывод карты на экран
 
 
 def step_maps(step, symbol):  # Сделать ход в ячейку
-    ind = maps.index(step)
-    maps[ind] = symbol
+    if step not in maps:
+        try:
+            try2 = int(input('Клетка занята, выберите другую: '))
+            ind = maps.index(try2)
+            maps[ind] = symbol
+        except ValueError:
+            step_maps(try2, symbol)
+    else:
+        ind = maps.index(step)
+        maps[ind] = symbol
 
 
 def get_result():  # Увидеть текущий результат игры
@@ -33,8 +41,10 @@ def get_result():  # Увидеть текущий результат игры
     for i in victories:
         if maps[i[0]] == 'x' and maps[i[1]] == 'x' and maps[i[2]] == 'x':
             win = 'x'
-        if maps[i[0]] == 'o' and maps[i[1]] == 'o' and maps[i[2]] == 'o':
+        elif maps[i[0]] == 'o' and maps[i[1]] == 'o' and maps[i[2]] == 'o':
             win = 'o'
+        elif all([type(x) is str for x in maps]):
+            win = 'ничья'
 
     return win
 
@@ -48,10 +58,18 @@ while game_over == False:
 
     if player1 == True:
         symbol = 'x'
-        step = int(input('Игрок 1, ваш ход: '))
+        try:
+            step = int(input('Игрок 1, ваш ход: '))
+        except ValueError:
+            print('Введите число!')
+            step = int(input('Игрок 1, ваш ход: '))
     else:
         symbol = 'o'
-        step = int(input('Игрок 2, ваш ход: '))
+        try:
+            step = int(input('Игрок 2, ваш ход: '))
+        except ValueError:
+            print('Введите число!')
+            step = int(input('Игрок 2, ваш ход: '))
 
     step_maps(step, symbol)
     win = get_result()
@@ -63,4 +81,4 @@ while game_over == False:
     player1 = not player1
 
 print_maps()  # Когда игра окончена покажем карту и объявим победителя
-print('Победил', win)
+print(f'Победил(а) {win}!')
