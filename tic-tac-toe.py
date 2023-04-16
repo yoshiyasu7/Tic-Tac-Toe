@@ -9,17 +9,9 @@ victories = [[0, 1, 2], [3, 4, 5],  # Варианты победных лини
 
 
 def print_maps():  # Вывод карты на экран
-    print(maps[0], end=' ')
-    print(maps[1], end=' ')
-    print(maps[2])
-
-    print(maps[3], end=' ')
-    print(maps[4], end=' ')
-    print(maps[5])
-
-    print(maps[6], end=' ')
-    print(maps[7], end=' ')
-    print(maps[8])
+    print(f'{maps[0]} {maps[1]} {maps[2]}')
+    print(f'{maps[3]} {maps[4]} {maps[5]}')
+    print(f'{maps[6]} {maps[7]} {maps[8]}')
 
 
 def step_maps(step, symbol):  # Сделать ход в ячейку
@@ -80,5 +72,5 @@ while game_over == False:
 
     player1 = not player1
 
-print_maps()  # Когда игра окончена покажем карту и объявим победителя
+print_maps()  # Когда игра окончена покажет карту и объявит победителя
 print(f'Победил(а) {win}!')
